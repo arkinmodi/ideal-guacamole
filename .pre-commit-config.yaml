@@ -1,0 +1,46 @@
+# yamllint disable rule:line-length
+# yaml-language-server: $schema=https://json.schemastore.org/pre-commit-config.json
+# yamllint enable rule:line-length
+---
+ci:
+  autoupdate_schedule: quarterly
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      - id: check-yaml
+      - id: debug-statements
+      - id: double-quote-string-fixer
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        args: [--strict]
+
+  - repo: local
+    hooks:
+      - id: prettier
+        name: Prettier
+        language: node
+        entry: prettier --write --ignore-unknown
+        additional_dependencies:
+          - prettier@latest
+        types_or:
+          - yaml
+          - javascript
+
+      - id: prettier-markdown
+        name: Prettier (markdown)
+        language: node
+        entry: prettier --write --prose-wrap always
+        additional_dependencies:
+          - prettier@latest
+        types_or:
+          - markdown
