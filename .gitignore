@@ -1,1 +1,6 @@
 .DS_Store
+.expo
+android
+expo-env.d.ts
+ios
+node_modules
